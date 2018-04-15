@@ -276,9 +276,8 @@ namespace WpfMultiplicativeModel.service
             this.coefficientOfDetermination = (float)Math.Round(1 - (this.sumYTS / sum), 2);
         }
 
-        private void forecasting()
+        private void forecasting(int countPredicate = 3)
         {
-            int countPredicate = 3;
             this.predictedElements = new float[countPredicate];
             int indexForSeasonComponent = this.n%4;
 

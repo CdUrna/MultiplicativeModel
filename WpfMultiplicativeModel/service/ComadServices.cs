@@ -1,6 +1,4 @@
-﻿using Microsoft.Analytics.Interfaces;
-using Microsoft.Analytics.Types.Sql;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +24,7 @@ namespace WpfMultiplicativeModel.service
             remove { CommandManager.RequerySuggested -= value; }
         }
 
+
         public bool CanExecute(object parameter)
         {
             return this.canExecute == null || this.canExecute(parameter);
@@ -38,5 +37,4 @@ namespace WpfMultiplicativeModel.service
     }
 
 
-}
 }

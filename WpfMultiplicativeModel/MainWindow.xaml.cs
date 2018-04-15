@@ -39,9 +39,9 @@ namespace WpfMultiplicativeModel
             InitializeComponent();
             liveChartsSettings = new LiveChartsSettings();
             multiplicativeModel = new service.MultiplicativeModelServices();
-            DataContext = liveChartsSettings;
+            //DataContext = liveChartsSettings; ==!==
 
-
+            DataContext = new MultiplicativeViewModel();
             //YFormatter = value => value.ToString("R");
 
             //modifying the series collection will animate and update the chart
@@ -56,56 +56,62 @@ namespace WpfMultiplicativeModel
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //
-         
-            this.liveChartsSettings.SeriesCollection[0].Values = new ChartValues<double> { };
-            //
-            float[] data = new float[DataGrid.Children.Count];
 
-            for (int i = 0; i < DataGrid.Children.Count; i++)
-            {
-                UIElement element = DataGrid.Children[i];
-                if (String.Equals(element.GetType().Name, "TextBox"))
-                {
-                    TextBox el = (TextBox)element;
-                    data[i] = Convert.ToInt32(el.Text);
-                }
-            }
-            //this.SeriesCollection[0].Values.Add
-            multiplicativeModel.Algiment(data);
+            //this.liveChartsSettings.SeriesCollection[0].Values = new ChartValues<double> { };
+            ////
+            //float[] data = new float[DataGrid.Children.Count];
 
-            TextBlockForCoefficientOfDetermination.Text = multiplicativeModel.coefficientOfDetermination.ToString();
-            TextBoxForForecasting1.Text = multiplicativeModel.predictedElements[0].ToString();
-            TextBoxForForecasting2.Text = multiplicativeModel.predictedElements[1].ToString();
-            TextBoxForForecasting3.Text = multiplicativeModel.predictedElements[2].ToString();
+            //for (int i = 0; i < DataGrid.Children.Count; i++)
+            //{
+            //    UIElement element = DataGrid.Children[i];
+            //    if (String.Equals(element.GetType().Name, "TextBox"))
+            //    {
+            //        TextBox el = (TextBox)element;
+            //        data[i] = Convert.ToInt32(el.Text);
+            //    }
+            //}
+            ////this.SeriesCollection[0].Values.Add
+            //multiplicativeModel.Algiment(data);
 
-            //format Table 
-            this.liveChartsSettings.Labels = new string[multiplicativeModel.n + 3];
-            for (int i = 0; i < multiplicativeModel.n; i++)
-            {
-                this.liveChartsSettings.SeriesCollection[0].Values.Add((double)multiplicativeModel.dataArr[i]);
-            }
+            //TextBlockForCoefficientOfDetermination.Text = multiplicativeModel.coefficientOfDetermination.ToString();
+            //TextBoxForForecasting1.Text = multiplicativeModel.predictedElements[0].ToString();
+            //TextBoxForForecasting2.Text = multiplicativeModel.predictedElements[1].ToString();
+            //TextBoxForForecasting3.Text = multiplicativeModel.predictedElements[2].ToString();
 
-            int indexForDataArr = 0;
-            int indexForPredictedElements = 0;
-            for (int i = 0; i < multiplicativeModel.n + 3; i++)
-            {
-                this.liveChartsSettings.Labels[i] = (i + 1).ToString();
-                if (indexForDataArr < 16)
-                {
-                    this.liveChartsSettings.SeriesCollection[1].Values.Add(double.NaN); //null for first element
-                    indexForDataArr++;
-                }
-                else
-                {
-                    this.liveChartsSettings.SeriesCollection[1].Values.Add((double)multiplicativeModel.predictedElements[indexForPredictedElements]);
-                    if (indexForPredictedElements < 3)
-                    {
-                        indexForPredictedElements++;
-                    }
-                }
-            }
-            this.liveChartsSettings.SeriesCollection = liveChartsSettings.SeriesCollection;
-            Console.WriteLine("done");
+            ////format Table 
+            //this.liveChartsSettings.Labels = new string[multiplicativeModel.n + 3];
+            //for (int i = 0; i < multiplicativeModel.n; i++)
+            //{
+            //    this.liveChartsSettings.SeriesCollection[0].Values.Add((double)multiplicativeModel.dataArr[i]);
+            //}
+
+            //int indexForDataArr = 0;
+            //int indexForPredictedElements = 0;
+            //for (int i = 0; i < multiplicativeModel.n + 3; i++)
+            //{
+            //    this.liveChartsSettings.Labels[i] = (i + 1).ToString();
+            //    if (indexForDataArr < 16)
+            //    {
+            //        this.liveChartsSettings.SeriesCollection[1].Values.Add(double.NaN); //null for first element
+            //        indexForDataArr++;
+            //    }
+            //    else
+            //    {
+            //        this.liveChartsSettings.SeriesCollection[1].Values.Add((double)multiplicativeModel.predictedElements[indexForPredictedElements]);
+            //        if (indexForPredictedElements < 3)
+            //        {
+            //            indexForPredictedElements++;
+            //        }
+            //    }
+            //}
+            //this.liveChartsSettings.SeriesCollection = liveChartsSettings.SeriesCollection;
+            //Console.WriteLine("done");
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //string[] defData = new string[] { "375", "371", "869", "1015", "357", "471", "992", "1020", "390", "355",
+            //"992", "905", "461", "454", "920", "927"};
         }
     }
 }

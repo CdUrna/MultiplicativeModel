@@ -7,8 +7,37 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="552.36" Width="723">
+    <Window.Resources>
+        <DataTemplate x:Key="listData">
+            <ListBoxItem  Margin="1" HorizontalAlignment="Center">
+                <TextBox Height="22" Width="70" Text="{Binding Path=Value}" TabIndex="{Binding Path=TabIndex}"></TextBox>
+            </ListBoxItem>
+        </DataTemplate>
+        <DataTemplate x:Key="ResultData">
+            <ListBoxItem>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Значение сезонного компонента за {0} период равно: {1}">
+                            <Binding Path="PeriodNumber"></Binding>
+                            <Binding Path="SeasonalComponentValue"></Binding>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </ListBoxItem>
+        </DataTemplate>
+    </Window.Resources>
     <Grid Margin="0,0,2,14">
-        <Grid x:Name="DataGrid" Height="72" VerticalAlignment="Top" Width="583" Margin="15,20,15,0">
+        <Grid  Height="95" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <ListBox x:Name="dataList" ItemTemplate="{StaticResource listData}" ItemsSource="{Binding Data}"  KeyboardNavigation.TabNavigation="Continue"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
+        <!--<Grid x:Name="DataGrid" Height="72" VerticalAlignment="Top" Width="583" Margin="15,20,15,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="22"></RowDefinition>
                 <RowDefinition Height="22"></RowDefinition>
@@ -41,12 +70,21 @@
             <TextBox x:Name="TextBoxEl14" Grid.Row="1" TextWrapping="Wrap" Text="454" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,16,1,-26" Grid.Column="3"/>
             <TextBox x:Name="TextBoxEl15" Grid.Row="1" TextWrapping="Wrap" Text="920" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,16,1,-26" Grid.Column="4"/>
             <TextBox x:Name="TextBoxEl16" Grid.Row="1" TextWrapping="Wrap" Text="927" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,16,1,-26" Grid.Column="5"/>
-        </Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="557,209,0,0" VerticalAlignment="Top" Width="148" Click="Button_Click" Height="44"/>
+        </Grid> -->
+        <Button Content="Button" HorizontalAlignment="Left" Margin="557,209,0,0" VerticalAlignment="Top" Width="148" Click="Button_Click" Height="44"
+                CommandParameter="Data" Command="{Binding StartComand}"/>
 
         <Border BorderBrush="Black" BorderThickness="1" Margin="25,149,297,254">
             <Grid x:Name="resultGrid" HorizontalAlignment="Left" Height="103" VerticalAlignment="Top" Width="392" ShowGridLines="True" Margin="0,0,-1,-1">
-                <Grid.RowDefinitions>
+                <ListBox ItemTemplate="{StaticResource ResultData}" ItemsSource="{Binding ResultsData}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                </ListBox>
+                <!--<Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="3"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -58,13 +96,18 @@
                 <Label Content="Прогноз на 1 &#xD;&#xA;период:" Target="{Binding ElementName=TextBoxForForecasting1}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="54" Width="130" FontSize="14" Grid.Row="0"  Grid.Column="0"/>
                 <Label Content="Прогноз на 2 &#xD;&#xA;период:" Target="{Binding ElementName=TextBoxForForecasting2}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="54" Width="130" FontSize="14" Grid.Row="0"  Grid.Column="1"/>
                 <Label Content="Прогноз на 3 &#xD;&#xA;период:" Target="{Binding ElementName=TextBoxForForecasting3}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="54" Width="130" FontSize="14" Grid.Row="0"  Grid.Column="2"/>
-                <TextBlock x:Name="TextBoxForForecasting1" HorizontalAlignment="Stretch" Margin="0,0,0,-46" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="50" Width="130"/>
-                <TextBlock x:Name="TextBoxForForecasting2" HorizontalAlignment="Stretch" Margin="0,0,0,-46" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="50" Width="130" Grid.Column="1"/>
-                <TextBlock x:Name="TextBoxForForecasting3" HorizontalAlignment="Stretch" Margin="0,0,0,-46" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Stretch" Height="50" Width="130" Grid.Column="2"/>
+                <TextBlock x:Name="TextBoxForForecasting1" HorizontalAlignment="Stretch" Margin="0,0,0,-46" Grid.Row="1" 
+                           TextWrapping="Wrap" VerticalAlignment="Stretch" Height="50" Width="130" Text="{Binding Path=PredicatedElements[0]}"/>
+                <TextBlock x:Name="TextBoxForForecasting2" HorizontalAlignment="Stretch" Margin="0,0,0,-46" Grid.Row="1" 
+                           TextWrapping="Wrap" VerticalAlignment="Stretch" Height="50" Width="130" Grid.Column="1" Text="{Binding PredicatedElements[1]}"/>
+                <TextBlock x:Name="TextBoxForForecasting3" HorizontalAlignment="Stretch" Margin="0,0,0,-46" Grid.Row="1" 
+                           TextWrapping="Wrap" VerticalAlignment="Stretch" Height="50" Width="130" Grid.Column="2" Text="{Binding PredicatedElements[2]}"/>-->
             </Grid>
         </Border>
-        <Label Content="Коэффициент детерминации:" Target="{Binding ElementName=TextBlockForCoefficientOfDetermination}" HorizontalAlignment="Left" Margin="27,100,0,0" VerticalAlignment="Top" Width="226" Height="39" FontSize="16"/>
-        <TextBlock x:Name="TextBlockForCoefficientOfDetermination" Margin="258,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="70" Height="21" FontSize="14" HorizontalAlignment="Left" TextAlignment="Left" />
+        <Label Content="Коэффициент детерминации:" Target="{Binding ElementName=CoefficientOfDetermination}" HorizontalAlignment="Left" Margin="27,100,0,0" VerticalAlignment="Top" Width="226" Height="39" FontSize="16"/>
+        <TextBlock x:Name="TextBlockForCoefficientOfDetermination" Margin="258,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" 
+                   Width="70" Height="21" FontSize="14" HorizontalAlignment="Left" TextAlignment="Left"
+                   Text="{Binding CoefficientOfDetermination}"/>
         <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" Margin="0,268,0,0" Zoom="{Binding ZoomingMode}">
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Sales" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
@@ -73,5 +116,6 @@
                 <lvc:Axis Title="Month" Labels="{Binding Labels}" MinValue="{Binding MinForXAxis}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
+        <Button Content="def" HorizontalAlignment="Left" Margin="592,149,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" Command="{Binding DefArg}"/>
     </Grid>
 </Window>

@@ -63,7 +63,7 @@
     <Compile Include="Model\MultiplicativeModel.cs" />
     <Compile Include="service\ComadServices.cs" />
     <Compile Include="service\MultIpPart.cs" />
-    <Compile Include="ViewModel\LiveChartsSettings.cs" />
+    <Compile Include="Model\LiveChartsSettings.cs" />
     <Compile Include="ViewModel\MultiplicativeViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -46,7 +46,7 @@ namespace WpfMultiplicativeModel.ViewModel
             set
             {
                 _zoomingMode = value;
-                OnPropertyChanged();
+                OnPropertyChanged("ZoomingMode");
             }
         }
 
