@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfMultiplicativeModel"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="552.36" Width="723">
+        Title="MainWindow TestV-0.0.3" Height="552.36" Width="723">
     <Window.Resources>
         <DataTemplate x:Key="listData">
             <ListBoxItem  Margin="1" HorizontalAlignment="Center">
@@ -71,7 +71,7 @@
             <TextBox x:Name="TextBoxEl15" Grid.Row="1" TextWrapping="Wrap" Text="920" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,16,1,-26" Grid.Column="4"/>
             <TextBox x:Name="TextBoxEl16" Grid.Row="1" TextWrapping="Wrap" Text="927" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,16,1,-26" Grid.Column="5"/>
         </Grid> -->
-        <Button Content="Button" HorizontalAlignment="Left" Margin="557,209,0,0" VerticalAlignment="Top" Width="148" Click="Button_Click" Height="44"
+        <Button Content="Button" HorizontalAlignment="Left" Margin="592,209,0,0" VerticalAlignment="Top" Width="113" Click="Button_Click" Height="44"
                 CommandParameter="Data" Command="{Binding StartComand}"/>
 
         <Border BorderBrush="Black" BorderThickness="1" Margin="25,149,297,254">
@@ -79,10 +79,10 @@
                 <ListBox ItemTemplate="{StaticResource ResultData}" ItemsSource="{Binding ResultsData}"
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
                 </ListBox>
                 <!--<Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -116,6 +116,8 @@
                 <lvc:Axis Title="Month" Labels="{Binding Labels}" MinValue="{Binding MinForXAxis}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
-        <Button Content="def" HorizontalAlignment="Left" Margin="592,149,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" Command="{Binding DefArg}"/>
+        <Button x:Name="countPredicate" Content="def" HorizontalAlignment="Left" Margin="592,149,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" Command="{Binding DefArg}"/>
+        <Label Target="{Binding ElementName=countPredicate}" Content="Кол. Прогнозов" HorizontalAlignment="Left" Margin="434,189,0,0" VerticalAlignment="Top" Width="115" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="434,223,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="39" FontSize="14"/>
     </Grid>
 </Window>

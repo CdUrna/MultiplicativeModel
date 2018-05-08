@@ -16,7 +16,7 @@ namespace WpfMultiplicativeModel.ViewModel
     class MultiplicativeViewModel : INotifyPropertyChanged
     {
         private MultiplicativeModelServices multiplicativeModelServices;
-        private LiveChartsSettings liveChartsSettings; //модель для найстройки livexharts
+        private LiveChartsSettings liveChartsSettings; //модель для найстройки livecharts
         private MultiplicativeModel multiplicativeModel;
         public ObservableCollection<DataElement> Data { get; set; }
         public ObservableCollection<ResultDataElement> ResultsData {get; set;}
@@ -90,6 +90,11 @@ namespace WpfMultiplicativeModel.ViewModel
                     {
                         this.SeriesCollection[0].Values.Add((double)multiplicativeModelServices.dataArr[i]);
                     }
+                    //TS
+                    //for (int i = 0; i < multiplicativeModelServices.TS.Length; i++)
+                    //{
+                    //    this.SeriesCollection[2].Values.Add((double)multiplicativeModelServices.TS[i]);
+                    //}
                     int indexForDataArr = 0;
                     int indexForPredictedElements = 0;
                     for (int i = 0; i < multiplicativeModelServices.n + 3; i++)
@@ -97,7 +102,8 @@ namespace WpfMultiplicativeModel.ViewModel
                         this.Labels[i] = (i + 1).ToString();
                         if (indexForDataArr < 16)
                         {
-                            this.SeriesCollection[1].Values.Add(double.NaN); //null for first element
+                            //this.SeriesCollection[1].Values.Add(double.NaN); //null for first element
+                            this.SeriesCollection[1].Values.Add((double)multiplicativeModelServices.TS[i]);
                             indexForDataArr++;
                         }
                         else
@@ -195,6 +201,7 @@ namespace WpfMultiplicativeModel.ViewModel
                 OnPropertyChanged("MinForXAxis");
             }
         }
+        //end liveChart prop
 
         //converter 
         private float[] convertStringCollectionInFloatArray(IEnumerable<DataElement> collection)

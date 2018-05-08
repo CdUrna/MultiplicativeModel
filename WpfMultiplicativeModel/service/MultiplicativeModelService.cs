@@ -15,7 +15,7 @@ namespace WpfMultiplicativeModel.service
         public float[] Evaluation;
         private SeasonalComponentEstimates seasonalComponentEstimates;
         private float[] componentT;
-        private float[] TS;
+        public float[] TS;
         private float[] E;
         private float sumE;
         private float sumYTS;
@@ -37,7 +37,7 @@ namespace WpfMultiplicativeModel.service
             this.seasonalComponentEstimates = new SeasonalComponentEstimates();
         }
 
-        public void Algiment(float[] data)
+        public void Algiment(float[] data, int countPredicate = 3)
         {
             this.dataArr = new float[data.Length];
             this.n = data.Length;
@@ -65,7 +65,7 @@ namespace WpfMultiplicativeModel.service
             this.getSumYTS();
 
             this.getCofficientOfDetermination();
-            this.forecasting();
+            this.Forecasting(countPredicate);
         }
 
         private void getmMovingAverage(float[] data, ref float[] results)
@@ -276,7 +276,7 @@ namespace WpfMultiplicativeModel.service
             this.coefficientOfDetermination = (float)Math.Round(1 - (this.sumYTS / sum), 2);
         }
 
-        private void forecasting(int countPredicate = 3)
+        private void Forecasting(int countPredicate = 3)
         {
             this.predictedElements = new float[countPredicate];
             int indexForSeasonComponent = this.n%4;

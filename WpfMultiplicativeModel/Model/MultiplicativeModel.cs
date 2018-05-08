@@ -107,6 +107,13 @@ namespace WpfMultiplicativeModel.Model
             }
         }
     }
+    //---
+    class PredicatedElements
+    {
+        float prediatedItems;
+        float coficientOfDetermination;
+        float [] djustedSeasonalComponent;
+    } //-----
 
     class ResultDataElement : INotifyPropertyChanged
     {

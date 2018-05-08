@@ -62,7 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\MultiplicativeModel.cs" />
     <Compile Include="service\ComadServices.cs" />
-    <Compile Include="service\MultIpPart.cs" />
+    <Compile Include="service\MultiplicativeModelService.cs" />
     <Compile Include="Model\LiveChartsSettings.cs" />
     <Compile Include="ViewModel\MultiplicativeViewModel.cs" />
     <Page Include="MainWindow.xaml">

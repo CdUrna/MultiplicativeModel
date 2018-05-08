@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 
 namespace WpfMultiplicativeModel.ViewModel
 {
@@ -32,6 +33,13 @@ namespace WpfMultiplicativeModel.ViewModel
                 {
                     Title = "спрогнозированые данные",
                     Values = new ChartValues<double>{}
+                },
+                new LineSeries
+                {
+                    Title = "уровни ряда",
+                    Values = new ChartValues<double>{},
+                    PointForeground = new SolidColorBrush(Colors.Firebrick),
+                    
                 }
             };
             ZoomingMode = ZoomingOptions.X;
