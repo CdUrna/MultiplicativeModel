@@ -76,7 +76,8 @@ namespace WpfMultiplicativeModel.service
                 {
                     continue;
                 }
-                results[i - 1] = (float)(data[i - 1] + data[i] + data[i + 1] + data[i + 2]) / 3;
+                results[i - 1] = (float)(data[i - 1] + data[i] + data[i + 1]) / 3;
+                // results[i - 1] = (float)(data[i - 1] + data[i] + data[i + 1] + data[i + 2]) / 3;
             }
         }
 
@@ -285,13 +286,13 @@ namespace WpfMultiplicativeModel.service
             {
                 if (indexForSeasonComponent < 4)
                 {
-                    this.predictedElements[i] = (this.b + (this.a * (n + i + 1))) + this.seasonalComponentEstimates.djustedSeasonalComponent[indexForSeasonComponent];
+                    this.predictedElements[i] = (this.b + (this.a * (n + i + 1))) * this.seasonalComponentEstimates.djustedSeasonalComponent[indexForSeasonComponent];
                     indexForSeasonComponent++;
                 }
                 else
                 {
                     indexForSeasonComponent = 0;
-                    this.predictedElements[i] = (this.b + (this.a * (n + i + 1))) + this.seasonalComponentEstimates.djustedSeasonalComponent[indexForSeasonComponent];
+                    this.predictedElements[i] = (this.b + (this.a * (n + i + 1))) * this.seasonalComponentEstimates.djustedSeasonalComponent[indexForSeasonComponent];
                     indexForSeasonComponent++;
                 }
             }
