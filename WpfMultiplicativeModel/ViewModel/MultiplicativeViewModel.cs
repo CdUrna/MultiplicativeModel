@@ -19,9 +19,11 @@ namespace WpfMultiplicativeModel.ViewModel
         private LiveChartsSettings liveChartsSettings; //модель для найстройки livecharts
         private MultiplicativeModel multiplicativeModel;
         public ObservableCollection<DataElement> Data { get; set; }
-        public ObservableCollection<ResultDataElement> ResultsData {get; set;}
+        public ObservableCollection<ResultDataElement> ResultsData { get; set; }
         private ComadServices startComand;
         private ComadServices defArg;
+
+        private int countOfPredicatePlements;
 
         public MultiplicativeViewModel()
         {
@@ -35,10 +37,7 @@ namespace WpfMultiplicativeModel.ViewModel
                 this.Data.Add(new DataElement((i).ToString()));
             }
 
-            for (int i = 0; i < 3; i++)
-            {
-                this.ResultsData.Add(new ResultDataElement(i+1));
-            }
+          
         }
 
 
@@ -54,7 +53,7 @@ namespace WpfMultiplicativeModel.ViewModel
                 OnPropertyChanged("CoefficientOfDetermination");
             }
         }
-        
+
         public float[] PredicatedElements
         {
             get
@@ -76,16 +75,16 @@ namespace WpfMultiplicativeModel.ViewModel
                 return startComand ?? (startComand = new ComadServices(obj =>
                 {
                     float[] dtata = this.convertStringCollectionInFloatArray(this.Data);
-                    multiplicativeModelServices.Algiment(dtata);
+                    multiplicativeModelServices.Algiment(dtata, CountOfPredicatePlements);
                     this.CoefficientOfDetermination = multiplicativeModelServices.coefficientOfDetermination;
 
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < CountOfPredicatePlements; i++)
                     {
                         this.ResultsData[i].SeasonalComponentValue = this.multiplicativeModelServices.predictedElements[i].ToString();
                     }
 
                     //tableFormat
-                    this.Labels = new string[multiplicativeModelServices.n + 3];
+                    this.Labels = new string[multiplicativeModelServices.n + this.countOfPredicatePlements];
                     for (int i = 0; i < multiplicativeModelServices.n; i++)
                     {
                         this.SeriesCollection[0].Values.Add((double)multiplicativeModelServices.dataArr[i]);
@@ -97,7 +96,7 @@ namespace WpfMultiplicativeModel.ViewModel
                     //}
                     int indexForDataArr = 0;
                     int indexForPredictedElements = 0;
-                    for (int i = 0; i < multiplicativeModelServices.n + 3; i++)
+                    for (int i = 0; i < multiplicativeModelServices.n + this.countOfPredicatePlements; i++)
                     {
                         this.Labels[i] = (i + 1).ToString();
                         if (indexForDataArr < 16)
@@ -109,7 +108,7 @@ namespace WpfMultiplicativeModel.ViewModel
                         else
                         {
                             this.SeriesCollection[1].Values.Add((double)multiplicativeModelServices.predictedElements[indexForPredictedElements]);
-                            if (indexForPredictedElements < 3)
+                            if (indexForPredictedElements < this.countOfPredicatePlements)
                             {
                                 indexForPredictedElements++;
                             }
@@ -136,8 +135,8 @@ namespace WpfMultiplicativeModel.ViewModel
             }
         }
 
-       //property for liveCharts
-       public SeriesCollection SeriesCollection
+        //property for liveCharts
+        public SeriesCollection SeriesCollection
         {
             get
             {
@@ -201,6 +200,21 @@ namespace WpfMultiplicativeModel.ViewModel
                 OnPropertyChanged("MinForXAxis");
             }
         }
+
+        public int CountOfPredicatePlements
+        {
+            get => countOfPredicatePlements;
+            set
+            {
+                this.countOfPredicatePlements = value;
+                for (int i = 0; i < this.countOfPredicatePlements; i++)
+                {
+                    this.ResultsData.Add(new ResultDataElement(i + 1));
+                }
+                OnPropertyChanged("CountOfPredicatePlements");
+            }
+        }
+
         //end liveChart prop
 
         //converter 
@@ -215,7 +229,7 @@ namespace WpfMultiplicativeModel.ViewModel
             }
             return resultArray;
         }
-            
+
         //реализация интерфейса 
         public event PropertyChangedEventHandler PropertyChanged;
 
